@@ -14,7 +14,8 @@ const AppRouter = () => (
         <Switch>
             <Route path="/" component={Dash} exact/>
             <Route path="/create" component={AddExpensePage}/>
-            <Route path="/edit" component={EditExpensePage}/>
+            {/* The :id will serve as a dynamic value parameter */}
+            <Route path="/edit/:id" component={EditExpensePage}/>
             <Route path="/help" component={HelpPage}/>
             <Route component={NotFoundPage}/>
         </Switch>

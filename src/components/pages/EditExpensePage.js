@@ -4,7 +4,7 @@ const EditExpensePage = (props) => {
   console.log(props);
   return (
     <div>
-      This is my edit expense page
+      This is my edit expense page {props.match.params.id}
     </div>
   )
 }
