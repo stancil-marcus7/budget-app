@@ -4,10 +4,11 @@ import ReactDOM from 'react-dom';
 import 'normalize.css/normalize.css'
 import * as serviceWorker from './serviceWorker';
 import Redux101 from './playground/Redux101';
+import ReduxExpen from './playground/redux-expensify';
 import Destructuring from '../src/playground/Destructuring'
 
 
-ReactDOM.render(<Destructuring/>, document.getElementById('root'));
+ReactDOM.render(<ReduxExpen/>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
