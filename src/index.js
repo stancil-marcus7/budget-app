@@ -15,11 +15,6 @@ import getVisibleExpenses from  './selectors/expenses'
 import AuthInfo from "./playground/hoc"
 const store = configureStore();
 
-store.subscribe(() => {
-    const state = store.getState();
-    const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
-    console.log(visibleExpenses);
-})
 
 store.dispatch(addExpense({
     description:'Rent bill',
@@ -35,13 +30,6 @@ store.dispatch(addExpense({
     description: 'Gas bill',
     createdAt: 1000
 }));
-
-
-setTimeout(() => {
-    store.dispatch(setTextFilter('bill'));
-}, 3000)
-
-store.dispatch(setTextFilter('water'));
 
 console.log(store.getState());
 
