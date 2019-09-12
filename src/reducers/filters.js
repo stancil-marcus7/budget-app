@@ -6,7 +6,7 @@ const filterReduceDefaultState = {
 }
 
 //Filters Reducer
-const filtersReducer = (state=filterReduceDefaultState, action) => {
+export default (state=filterReduceDefaultState, action) => {
     switch (action.type) {
         case 'SET_TEXT_FILTER':
             return {
