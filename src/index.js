@@ -15,6 +15,11 @@ import getVisibleExpenses from  './selectors/expenses'
 import AuthInfo from "./playground/hoc"
 const store = configureStore();
 
+store.subscribe(() => {
+    const state = store.getState();
+    const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
+    console.log(visibleExpenses);
+})
 
 store.dispatch(addExpense({
     description:'Rent bill',
@@ -23,6 +28,7 @@ store.dispatch(addExpense({
 
 store.dispatch(addExpense({
     description: 'Water bill',
+    amount: '123',
     createdAt: 4500
 }));
 
