@@ -19,22 +19,24 @@ export default (state=filterReduceDefaultState, action) => {
         case 'SORT_BY_DATE':
             return {
                 ...state,
-                sortBy: 'date'
+                sortBy: action.sortBy
             }
         case 'SORT_BY_AMOUNT':
             return {
                 ...state,
-                sortBy: 'amount'
+                sortBy: action.sortBy
             }
         case 'SET_START_DATE':
             return{
                 ...state,
-                startDate: action.date
+                //Changed this to startDate in the action
+                startDate: action.startDate
             }
         case 'SET_END_DATE':
             return{
                 ...state,
-                endDate: action.date
+                //Changed this to startDate in the action
+                endDate: action.endDate
             }
         default:
             return state;
