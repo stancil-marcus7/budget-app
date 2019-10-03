@@ -1,29 +1,6 @@
 import selectedExpenses from '../../selectors/expenses';
 import moment from 'moment';
-
-const expenses =[{
-    id: '1',
-    description: 'Gum',
-    note: '',
-    amount: 195,
-    //right now
-    createdAt: 0  
-},{
-        id: '2',
-        description: 'Rent',
-        note: '',
-        amount: 109500,
-        //four days from now
-        createdAt: moment(0).subtract(4, 'days').valueOf()
-    }, {
-        id: '3',
-        description: 'Credit Card',
-        note: '',
-        amount: 4500,
-        //four days into the future
-        createdAt:  moment(0).add(4, 'days').valueOf()
-    }
-];
+import expenses from '../fixtures/expenses'
 
 test('should filter by test value', () => {
     const filters = {
@@ -59,3 +36,24 @@ test('should filter by end date', () => {
     expect(result).toEqual([expenses[0], expenses[1]]) 
 })
 
+test(`should sort by date`, () => {
+    const filters = {
+        text: '',
+        sortBy: 'date',
+        startDate: undefined,
+        endDate: undefined
+    }
+    const result = selectedExpenses(expenses, filters);
+    expect(result).toEqual([expenses[2], expenses[0], expenses[1]]);
+})
+
+test(`should sort by time`, () => {
+    const filters = {
+        text: '',
+        sortBy: 'amount',
+        startDate: undefined,
+        endDate: undefined
+    }
+    const result = selectedExpenses(expenses, filters);
+    expect(result).toEqual([expenses[1], expenses[2], expenses[0]]);
+})

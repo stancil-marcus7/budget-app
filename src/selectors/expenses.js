@@ -10,7 +10,7 @@ export default (expenses, { text, sortBy, startDate, endDate }) => {
         return startDateMatch && endDateMatch && textMatch
     }).sort((a, b) => {
         if (sortBy === 'date'){
-            return a.createAt < b.createdAt ? 1 : -1;
+            return a.createdAt < b.createdAt ? 1 : -1;
             //Printing by amount in descending order
         } else if (sortBy === 'amount'){
             return b.amount - a.amount;
