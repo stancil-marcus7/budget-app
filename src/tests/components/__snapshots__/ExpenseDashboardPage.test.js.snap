@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render no expenses, when there are no expenses 1`] = `
+<div>
+  <p>
+    Viewing 
+    0
+     
+    expenses 
+     totalling 
+    $0.00
+  </p>
+</div>
+`;
+
+exports[`should render with all the expsneses 1`] = `
+<div>
+  <p>
+    Viewing 
+    3
+     
+    expenses 
+     totalling 
+    $0.10
+  </p>
+</div>
+`;

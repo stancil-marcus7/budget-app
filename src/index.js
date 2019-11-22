@@ -14,31 +14,8 @@ import getVisibleExpenses from  './selectors/expenses'
 //import ReduxExpen from './playground/redux-expensify';
 //import Destructuring from '../src/playground/Destructuring'
 import AuthInfo from "./playground/hoc"
+import './firebase/firebase'; 
 const store = configureStore();
-
-store.subscribe(() => {
-    const state = store.getState();
-    const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
-    console.log(visibleExpenses);
-})
-
-store.dispatch(addExpense({
-    description:'Rent bill',
-    createdAt: 109500
-}));
-
-store.dispatch(addExpense({
-    description: 'Water bill',
-    amount: '123',
-    createdAt: 4500
-}));
-
-store.dispatch(addExpense({
-    description: 'Gas bill',
-    createdAt: 1000
-}));
-
-console.log(store.getState());
 
 const jsx = (
     <Provider store={store}>
