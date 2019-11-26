@@ -7,14 +7,13 @@ import './styles/styles.scss';
 import 'react-dates/lib/css/_datepicker.css';
 import * as serviceWorker from './serviceWorker';
 import configureStore from './store/configureStore';
-import {addExpense} from './actions/expenses'
-import { setTextFilter } from './actions/filters';
-import getVisibleExpenses from  './selectors/expenses'
 //import Redux101 from './playground/Redux101';
 //import ReduxExpen from './playground/redux-expensify';
 //import Destructuring from '../src/playground/Destructuring'
 import AuthInfo from "./playground/hoc"
 import './firebase/firebase'; 
+import './playground/promise'
+
 const store = configureStore();
 
 const jsx = (

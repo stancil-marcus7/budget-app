@@ -1,4 +1,9 @@
-import { addExpense, editExpense, removeExpense } from '../../actions/expenses';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import { startAddExpense, addExpense, editExpense, removeExpense } from '../../actions/expenses';
+import expenses from '../fixtures/expenses'
+
+const createMockStore = configureMockStore([thunk]);
 
 test(`should set up remove expense action object`,() => {
     const action = removeExpense({ id: `123abc`})
@@ -18,36 +23,61 @@ test(`should edit expense`, () => {
 })
 
 test(`should set up add expense object with provided values`, () => {
-    const expenseData = { 
-        description: 'Rent',
-        amount: 109500,
-        createdAt: 1000,
-        note: 'This was last months rent'
-    }
-    const action = addExpense(expenseData);
+    const action = addExpense(expenses[2]);
     expect(action).toEqual({
         type: 'ADD_EXPENSE',
-        expense: {
-            ...expenseData,
-            id: expect.any(String)
-        }
+        expense: expenses[2]
     })
-}) 
+});
 
-test('should set up add expense action object with default values', () => {
-    const defaultData = {
-        description: '', 
-        note: '', 
-        amount:  0, 
-        createdAt: 0
-    }
+//Going to use test redux store to test this
+test(`should add expense to database and store`, (done)=>{
+    const store = createMockStore({});
 
-    const action = addExpense(defaultData);
-    expect(action).toEqual({
-        type: 'ADD_EXPENSE',
-        expense: {
-            ...defaultData,
-            id: expect.any(String)
-        }
-    })
+    const expenseData = {
+        description: 'Mouse',
+        amount: 3000,
+        note: `This one `,
+        createdAt: 1000
+    };
+    store.dispatch(startAddExpense(expenseData))
+        .then(() => {
+            expect(1).toBe(2);
+            //This will get jest to wait until everything is finished; asynchronous processing
+            done();
+        });
 })
+// test(`should set up add expense object with provided values`, () => {
+//     const expenseData = { 
+//         description: 'Rent',
+//         amount: 109500,
+//         createdAt: 1000,
+//         note: 'This was last months rent'
+//     }
+//     const action = addExpense(expenseData);
+//     expect(action).toEqual({
+//         type: 'ADD_EXPENSE',
+//         expense: {
+//             ...expenseData,
+//             id: expect.any(String)
+//         }
+//     })
+// }) 
+
+// test('should set up add expense action object with default values', () => {
+//     const defaultData = {
+//         description: '', 
+//         note: '', 
+//         amount:  0, 
+//         createdAt: 0
+//     }
+
+//     const action = addExpense(defaultData);
+//     expect(action).toEqual({
+//         type: 'ADD_EXPENSE',
+//         expense: {
+//             ...defaultData,
+//             id: expect.any(String)
+//         }
+//     })
+// })

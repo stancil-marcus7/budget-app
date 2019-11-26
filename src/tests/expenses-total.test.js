@@ -1,5 +1,5 @@
-import getExpenseTotal from "../../actions/expenses-total";
-import expenses from "../fixtures/expenses";
+import getExpenseTotal from "../expenses-total";
+import expenses from "./fixtures/expenses";
 
 test('should return 0 if there are no expenses', ()=> {
     const result = getExpenseTotal([]);
