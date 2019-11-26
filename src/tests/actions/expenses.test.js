@@ -51,13 +51,13 @@ test(`should add expense to database and store`, (done)=>{
                     ...expenseData
                 }
             })
-            
+
             return database.ref(`expenses/${actions[0].expense.id}`).once(`value`);
             //This will get jest to wait until everything is finished; asynchronous processing    
         }).then(snapshot => {
-            expect(snapshot.val()).toEqual(expenseData);
-            done();
-        });
+        expect(snapshot.val()).toEqual(expenseData);
+        done();
+    });
 })
 // test(`should set up add expense object with provided values`, () => {
 //     const expenseData = { 
@@ -76,14 +76,14 @@ test(`should add expense to database and store`, (done)=>{
 //     })
 // }) 
 
-test('should set up add expense action object with default values', () => {
+test('should set up add expense action object with default values', (done) => {
     const store = createMockStore({});
 
     const expenseData = {
-        description: '', 
-            note: '', 
-            amount: 0, 
-            createdAt: 0
+        description: '',
+        note: '',
+        amount: 0,
+        createdAt: 0
     };
     store.dispatch(startAddExpense({}))
         .then(() => {
@@ -96,11 +96,11 @@ test('should set up add expense action object with default values', () => {
                     ...expenseData
                 }
             })
-            
+
             return database.ref(`expenses/${actions[0].expense.id}`).once(`value`);
             //This will get jest to wait until everything is finished; asynchronous processing    
         }).then(snapshot => {
-            expect(snapshot.val()).toEqual(expenseData);
-            done();
-        });
+        expect(snapshot.val()).toEqual(expenseData);
+        done();
+    });
 });
