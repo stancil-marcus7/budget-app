@@ -12,7 +12,7 @@ import configureStore from './store/configureStore';
 //import Destructuring from '../src/playground/Destructuring'
 import AuthInfo from "./playground/hoc"
 import './firebase/firebase'; 
-import './playground/promise'
+// import './playground/promise'
 
 const store = configureStore();
 
