@@ -6,13 +6,15 @@ import AddExpensePage from '../components/pages/AddExpensePage';
 import EditExpensePage from '../components/pages/EditExpensePage'
 import HelpPage from '../components/pages/HelpPage';
 import NotFoundPage from '../components/pages/NotFoundPage';
+import LoginPage from '../components/pages/LoginPage'
 
 const AppRouter = () => (
     <BrowserRouter>
         <div>
         <Header/>
         <Switch>
-            <Route path="/" component={Dash} exact/>
+            <Route path="/" component={LoginPage} exact/>
+            <Route path="/dashboard" component={Dash} exact/>
             <Route path="/create" component={AddExpensePage}/>
             {/* The :id will serve as a dynamic value parameter */}
             <Route path="/edit/:id" component={EditExpensePage}/>

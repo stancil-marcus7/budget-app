@@ -8,7 +8,7 @@ export class ExpenseDashboardPage extends React.Component{
     render(){
         return (
             <div>
-                <p>Viewing {this.props.expenseCount} {this.props.expenseCount > 1 || this.props.expenseCount === 0 ? "expenses " : "expense "} totalling {numeral(this.props.expenseTotal/100).format('$0,0.00')}</p>
+                <h1>Viewing {this.props.expenseCount} {this.props.expenseCount > 1 || this.props.expenseCount === 0 ? "expenses " : "expense "} totalling {numeral(this.props.expenseTotal/100).format('$0,0.00')}</h1>
             </div>
         )
     }

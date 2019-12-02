@@ -16,6 +16,10 @@ const config = {
 
   export { firebase, database as default};
 
+  expensify-ac5ed
+
+
+AIzaSyAFXZDejqZnee347e5RyOTbtCS_1wseie4
 //   database.ref('expenses').on('child_changed', snapshot => {
 //     console.log(snapshot.key, snapshot.val());
 // })

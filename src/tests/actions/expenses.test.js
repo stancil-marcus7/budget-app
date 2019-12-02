@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { startSetExpenses, startAddExpense, addExpense, editExpense, removeExpense, setExpenses} from '../../actions/expenses';
+import { startEditExpense, startRemoveExpense, startSetExpenses, startAddExpense, addExpense, editExpense, removeExpense, setExpenses} from '../../actions/expenses';
 import expenses from '../fixtures/expenses'
 import database from '../../firebase/firebase';
 const createMockStore = configureMockStore([thunk]);
@@ -125,11 +125,52 @@ test (`should setup set expense action object with data`, () => {
 
 test(`should fetch expenses from firebase`, (done) => {
     const store = createMockStore({});
-    store.dispatch(startSetExpenses()).then(() => {
+    store.dispatch(startSetExpenses())
+    .then(() => {
+        const actions = store.getActions;
+    expect(actions[0]).toEqual({
+        type: 'SET_EXPENSES',
+        expense
+    })
+    })
+    done();
+});
+
+test('should remove expnese from firebase', (done) => {
+    const store = createMockStore({});
+    store.dispatch(startRemoveExpense({id: 2131231}))
+    .then(() => {
+        const actions = store.getActions;
         expect(actions[0]).toEqual({
-            type: 'SET_EXPENSES',
-            expense
+            type: 'REMOVE_EXPENSE',
+            id: 2131231
+        });
+
+        return database.ref(`expenses/${id}`).once('value')
+    }).then(snapshot => {
+            expect(snapshot.val()).toBeFalsy();
+            done()
         })
     })
-    done()
-});
+
+test(`should edit expense in firebase`, (done) => {
+    const store = createMockStore({});
+    const id = 123131312323123;
+    const updates = {
+        amount: 2200
+    }
+    store.dispatch(startEditExpense(id, updates))
+    .then(() => {
+        const actions = store.Actions;
+        expect(actions[0]).toEqual({
+            type: 'EDIT_EXPENSE',
+            id,
+            updates
+        });
+        return database.ref(`expenses/${id}`).update(updates).then(snapshot => {
+            expect(snapshot.val().amount).toBe(2200);
+            done()
+        });
+    })
+    done();
+})
