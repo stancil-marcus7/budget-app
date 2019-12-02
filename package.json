@@ -7,7 +7,7 @@
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
     "babel-loader": "^8.0.6",
-    "firebase": "^7.4.0",
+    "firebase": "^7.5.0",
     "moment": "^2.24.0",
     "node-sass": "^4.12.0",
     "normalize.css": "^8.0.1",
@@ -29,7 +29,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest --config=jest.config.json",
+    "test": "REACT_APP_API_KEY=AIzaSyAyIYTgKrWqfqvi_u4DvY48lUHvjGeDGzc REACT_APP_AUTH_DOMAIN=expensify-test-7d7a2.firebaseapp.com REACT_APP_DATABASE_URL=https://expensify-test-7d7a2.firebaseio.com REACT_APP_PROJECT_ID=expensify-test-7d7a2 REACT_APP_STORAGE_BUCKET=expensify-test-7d7a2.appspot.com REACT_APP_MESSAGING_SENDER_ID=1091109313653 jest --config=jest.config.json",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -57,7 +57,7 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "enzyme-to-json": "^3.4.3",
-    "jest": "^24.8.0",
+    "jest": "^24.9.0",
     "react-test-renderer": "^16.11.0"
   }
 }
