@@ -8,19 +8,19 @@ import EditExpensePage from '../components/pages/EditExpensePage'
 import HelpPage from '../components/pages/HelpPage';
 import NotFoundPage from '../components/pages/NotFoundPage';
 import LoginPage from '../components/pages/LoginPage'
+import PrivateRoute from './PrivateRoute'
 
 export const history = createHistory()
 
 const AppRouter = () => (
     <Router history ={history}>
         <div>
-        <Header/>
         <Switch>
             <Route path="/" component={LoginPage} exact/>
-            <Route path="/dashboard" component={Dash} exact/>
-            <Route path="/create" component={AddExpensePage}/>
+            <PrivateRoute path="/dashboard" component={Dash} exact/>
+            <PrivateRoute path="/create" component={AddExpensePage}/>
             {/* The :id will serve as a dynamic value parameter */}
-            <Route path="/edit/:id" component={EditExpensePage}/>
+            <PrivateRoute path="/edit/:id" component={EditExpensePage}/>
             <Route path="/help" component={HelpPage}/>
             <Route component={NotFoundPage}/>
         </Switch>
