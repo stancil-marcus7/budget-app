@@ -1,4 +1,4 @@
-import Header from '../../components/nav/Header' 
+import {Header} from '../../components/nav/Header' 
 import {shallow} from 'enzyme';
 import React from 'react'
 
@@ -11,3 +11,10 @@ test(`should render header correctly`, () => {
     // renderer.render(<Header/>);
     // expect(renderer.getRenderOutput()).toMatchSnapshot();
 });
+
+test(`should call startLogout on button click`, () => {
+    let startLogout = jest.fn();
+    const wrapper = shallow(<Header startLogout={startLogout}/>)
+    wrapper.find('button').simulate('click');
+    expect(startLogout).toHaveBeenCalled(); 
+})

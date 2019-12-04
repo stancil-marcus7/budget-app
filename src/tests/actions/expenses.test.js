@@ -127,31 +127,30 @@ test(`should fetch expenses from firebase`, (done) => {
     const store = createMockStore({});
     store.dispatch(startSetExpenses())
     .then(() => {
-        const actions = store.getActions;
+        const actions = store.getActions();
     expect(actions[0]).toEqual({
         type: 'SET_EXPENSES',
-        expense
-    })
+        expenses
     })
     done();
+    })
 });
 
 test('should remove expnese from firebase', (done) => {
     const store = createMockStore({});
-    store.dispatch(startRemoveExpense({id: 2131231}))
-    .then(() => {
-        const actions = store.getActions;
+    const id = 2131231
+    store.dispatch(startRemoveExpense({id})).then(() => {
+        const actions = store.getActions();
         expect(actions[0]).toEqual({
             type: 'REMOVE_EXPENSE',
-            id: 2131231
+            id
         });
-
-        return database.ref(`expenses/${id}`).once('value')
-    }).then(snapshot => {
+    return database.ref(`expenses/${id}`).once('value');
+    }).then((snapshot) => {
             expect(snapshot.val()).toBeFalsy();
-            done()
-        })
-    })
+            done();
+        });
+    });
 
 test(`should edit expense in firebase`, (done) => {
     const store = createMockStore({});
@@ -159,18 +158,16 @@ test(`should edit expense in firebase`, (done) => {
     const updates = {
         amount: 2200
     }
-    store.dispatch(startEditExpense(id, updates))
-    .then(() => {
-        const actions = store.Actions;
+    store.dispatch(startEditExpense(id, updates)).then(() => {
+        const actions = store.getActions();
         expect(actions[0]).toEqual({
             type: 'EDIT_EXPENSE',
             id,
             updates
         });
-        return database.ref(`expenses/${id}`).update(updates).then(snapshot => {
+        return database.ref(`expenses/${id}`).once('value').then(snapshot => {
             expect(snapshot.val().amount).toBe(2200);
-            done()
+            done();
         });
     })
-    done();
 })
