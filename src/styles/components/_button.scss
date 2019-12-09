@@ -1,0 +1,16 @@
+.button{
+    background: $blue;
+    border: none;
+    //So the vertical padding will be in effect
+    display: inline-block;
+    font-size: $font-size-large;
+    font-weight: 300;
+    line-height: 1;
+    padding: 1.2rem;
+    text-decoration: none;
+    color: $white;
+    
+    &--link{
+        background: none;
+    }
+}

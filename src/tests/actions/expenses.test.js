@@ -3,6 +3,9 @@ import thunk from 'redux-thunk';
 import { startEditExpense, startRemoveExpense, startSetExpenses, startAddExpense, addExpense, editExpense, removeExpense, setExpenses} from '../../actions/expenses';
 import expenses from '../fixtures/expenses'
 import database from '../../firebase/firebase';
+
+const uid = "gfgfhjghjhjg"
+const defaultAuthState = {auth: { uid }}
 const createMockStore = configureMockStore([thunk]);
 
 beforeEach((done) => {
@@ -11,7 +14,7 @@ beforeEach((done) => {
         expenseData[id] = {description, note, amount, createdAt };
     });
     
-    database.ref('expenses').set(expenseData).then(() => done());
+    database.ref(`users/${uid}/expenses`).set(expenseData).then(() => done());
 })
 
 test(`should set up remove expense action object`,() => {
@@ -38,10 +41,10 @@ test(`should set up add expense object with provided values`, () => {
         expense: expenses[2]
     })
 });
-
+ 
 //Going to use test redux store to test this
 test(`should add expense to database and store`, (done)=>{
-    const store = createMockStore({});
+    const store = createMockStore(defaultAuthState);
 
     const expenseData = {
         description: 'Mouse',
@@ -61,7 +64,7 @@ test(`should add expense to database and store`, (done)=>{
                 }
             })
 
-            return database.ref(`expenses/${actions[0].expense.id}`).once(`value`);
+            return database.ref(`users/${uid}/expenses/${actions[0].expense.id}`).once(`value`);
             //This will get jest to wait until everything is finished; asynchronous processing    
         }).then(snapshot => {
         expect(snapshot.val()).toEqual(expenseData);
@@ -86,7 +89,7 @@ test(`should add expense to database and store`, (done)=>{
 // }) 
 
 test('should set up add expense action object with default values', (done) => {
-    const store = createMockStore({});
+    const store = createMockStore(defaultAuthState);
 
     const expenseData = {
         description: '',
@@ -106,7 +109,7 @@ test('should set up add expense action object with default values', (done) => {
                 }
             })
 
-            return database.ref(`expenses/${actions[0].expense.id}`).once(`value`);
+            return database.ref(`users/${uid}/expenses/${actions[0].expense.id}`).once(`value`);
             //This will get jest to wait until everything is finished; asynchronous processing    
         }).then(snapshot => {
         expect(snapshot.val()).toEqual(expenseData);
@@ -124,7 +127,7 @@ test (`should setup set expense action object with data`, () => {
 });
 
 test(`should fetch expenses from firebase`, (done) => {
-    const store = createMockStore({});
+    const store = createMockStore(defaultAuthState);
     store.dispatch(startSetExpenses())
     .then(() => {
         const actions = store.getActions();
@@ -137,7 +140,7 @@ test(`should fetch expenses from firebase`, (done) => {
 });
 
 test('should remove expnese from firebase', (done) => {
-    const store = createMockStore({});
+    const store = createMockStore(defaultAuthState);
     const id = 2131231
     store.dispatch(startRemoveExpense({id})).then(() => {
         const actions = store.getActions();
@@ -145,7 +148,7 @@ test('should remove expnese from firebase', (done) => {
             type: 'REMOVE_EXPENSE',
             id
         });
-    return database.ref(`expenses/${id}`).once('value');
+    return database.ref(`users/${uid}/expenses/${id}`).once('value');
     }).then((snapshot) => {
             expect(snapshot.val()).toBeFalsy();
             done();
@@ -153,7 +156,7 @@ test('should remove expnese from firebase', (done) => {
     });
 
 test(`should edit expense in firebase`, (done) => {
-    const store = createMockStore({});
+    const store = createMockStore(defaultAuthState);
     const id = 123131312323123;
     const updates = {
         amount: 2200
@@ -165,7 +168,7 @@ test(`should edit expense in firebase`, (done) => {
             id,
             updates
         });
-        return database.ref(`expenses/${id}`).once('value').then(snapshot => {
+        return database.ref(`users/${uid}/expenses/${id}`).once('value').then(snapshot => {
             expect(snapshot.val().amount).toBe(2200);
             done();
         });
