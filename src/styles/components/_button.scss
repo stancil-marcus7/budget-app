@@ -13,4 +13,9 @@
     &--link{
         background: none;
     }
+
+    &--remove {
+        @extend .button;
+        background: $light-grey;
+    }
 }
